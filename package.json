@@ -11,8 +11,13 @@
   "scripts": {
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
-    "dist": "yarn compile && electron-builder",
-    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
+    "dist": "yarn compile && electron-builder -mwl",
+    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
+    "clean": "yarn clean:dist && yarn clean:releases",
+    "build:mac": "yarn compile && electron-builder --mac",
+    "build:win": "yarn compile && electron-builder --win",
+    "build:linux": "yarn compile && electron-builder --linux",
+    "build:all": "yarn compile && electron-builder --mac && yarn compile && electron-builder --win && yarn compile && electron-builder --linux"
   },
   "build": {
     "productName": "Hadro Electron",
@@ -22,7 +27,12 @@
     },
     "mac": {
       "darkModeSupport": "true",
-      "icon": "resources/icon/icon.png"
+      "icon": "resources/icon/icon.png",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "type": "distribution"
     },
     "dmg": {
       "background": "resources/dmg_background/background.png",
@@ -45,9 +55,6 @@
           "path": "/Applications"
         }
       ]
-    },
-    "pkg": {
-      "license": "Este producto es propiedad de Drovancal SAS"
     },
     "win": {
       "target": [
@@ -87,7 +94,13 @@
     "url": "https://github.com/handark/hadro-electron/issues"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.120",
     "axios": "^0.18.0",
+    "electron-context-menu": "^0.10.1",
+    "electron-is": "^3.0.0",
+    "electron-updater": "^4.0.6",
+    "electron-window-state": "^5.0.3",
+    "lodash": "^4.17.11",
     "node-thermal-printer": "^2.0.0",
     "source-map-support": "^0.5.10",
     "spectre.css": "^0.5.8"

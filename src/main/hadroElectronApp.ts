@@ -1,61 +1,55 @@
-import {  BrowserWindow } from 'electron';
-import { FacturasService } from '../servicios/facturasService';
-import path from 'path'
+import { BrowserWindow, App } from "electron";
 
-//const isDevelopment = process.env.NODE_ENV !== 'production';
+const esDesarrollo = process.env.NODE_ENV !== 'production';
 
-export default class HadroElectronApp {
+class HadroElectronApp {
 
-  static mainWindow: Electron.BrowserWindow;
-  static isDevelopment = process.env.NODE_ENV !== 'production';
-  static application: Electron.App;
-  static mainURL: string = `https://hadro.drogascalidad.com.co`
-  static facturaService: FacturasService = new FacturasService();
+  ventanaPrincipal: BrowserWindow;
+  aplicacion: App;
 
-  private static onWindowAllClosed() {
+  constructor(app: App) {
+    this.aplicacion = app;
+  }
+
+  private alCerrarTodasLasVentanas() {
     if (process.platform !== 'darwin') {
-      HadroElectronApp.application.quit();
+      this.aplicacion.quit();
     }
   }
     
-  private static create() {
+  private crearVentanaPrincipal() {
 
-    HadroElectronApp.facturaService.imprimirFactura(852);
-
-    HadroElectronApp.mainWindow = new BrowserWindow({
+    this.ventanaPrincipal = new BrowserWindow({
         width: 1024,
         height: 768,
         webPreferences: {
           nodeIntegration: false,
           preload: './preload.js'
-        },
-        icon: path.join(__dirname, 'static/icons/logo-hadro-electron.png')
+        }
     });
 
-    HadroElectronApp.mainWindow.maximize();
-    if(HadroElectronApp.isDevelopment) HadroElectronApp.mainWindow.webContents.openDevTools();
-    HadroElectronApp.mainWindow.loadURL(HadroElectronApp.mainURL);
+    this.ventanaPrincipal.maximize();
+    this.ventanaPrincipal.loadURL(`https://hadro.drogascalidad.com.co`);
 
-    HadroElectronApp.mainWindow.on('closed', () => {
-      HadroElectronApp.mainWindow.destroy();
+    if(esDesarrollo) this.ventanaPrincipal.webContents.openDevTools();
+    
+    this.ventanaPrincipal.on('closed', () => {
+      this.ventanaPrincipal.destroy();
     });
   }
 
-  static onReady(app: Electron.App, browserWindow: typeof BrowserWindow) {
-
-    HadroElectronApp.application = app;
-    HadroElectronApp.application.on('window-all-closed', HadroElectronApp.onWindowAllClosed)
-    HadroElectronApp.application.on('ready', HadroElectronApp.create);
-    HadroElectronApp.application.on('activate', HadroElectronApp.onActivated);
-
-    
-    
+  iniciarApp() {
+    this.aplicacion.on('window-all-closed', this.alCerrarTodasLasVentanas)
+    this.aplicacion.on('ready', this.crearVentanaPrincipal);
+    this.aplicacion.on('activate', this.alActivarseApp);    
   } 
 
-  private static onActivated() {
-    if (HadroElectronApp.mainWindow === null) {
-        HadroElectronApp.create();
+  private alActivarseApp() {
+    if (this.ventanaPrincipal === null) {
+        this.crearVentanaPrincipal();
     }
   }   
 
 }
+
+export default HadroElectronApp;

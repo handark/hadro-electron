@@ -1,5 +1,3 @@
-const printer = require("node-thermal-printer");
-
 class FacturasService {
 
   constructor() {
@@ -14,11 +12,11 @@ class FacturasService {
     console.log(`Imprimir Factura ${facnum}`)
 
 
-    printer.init({
+/*     printer.init({
       type: 'epson',
       interface: '/dev/usb/lp0'
     });
-
+ */
     /* 
   var c = pedido[0]
   var pedidoPrint = "Pedido: " + c.cotnum + "\t\tANTES: 19:30" +

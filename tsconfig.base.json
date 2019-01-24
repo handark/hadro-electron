@@ -17,6 +17,8 @@
 
     "newLine": "lf",
 
-    "noEmitOnError": true
+    "noEmitOnError": true,
+
+    "strictPropertyInitialization": false
   }
 }

@@ -1,7 +1,7 @@
-import { app, BrowserWindow } from 'electron';
+import { app } from 'electron';
 import HadroElectronApp from './hadroElectronApp';
 
-HadroElectronApp.onReady(app,BrowserWindow);
+new HadroElectronApp(app).iniciarApp()
 
 
 /* function createMainWindow() {
