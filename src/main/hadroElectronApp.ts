@@ -4,7 +4,7 @@ const esDesarrollo = process.env.NODE_ENV !== 'production';
 
 class HadroElectronApp {
 
-  ventanaPrincipal: BrowserWindow;
+  ventanaPrincipal: BrowserWindow | null;
   aplicacion: App;
 
   constructor(app: App) {
@@ -34,7 +34,7 @@ class HadroElectronApp {
     if(esDesarrollo) this.ventanaPrincipal.webContents.openDevTools();
     
     this.ventanaPrincipal.on('closed', () => {
-      this.ventanaPrincipal.destroy();
+      this.ventanaPrincipal = null;
     });
   }
 
