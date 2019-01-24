@@ -3,7 +3,7 @@
 ### Autor: Jose Luis Orozco - Drovancal SAS
 
 > Cliente de escritorio para hadro nube. [`hadro-electron`]
-(https://gitlab.com/drogas-calidad/hadro-electron).
+(https://github.com/handark/hadro-electron).
 
 Gracias al poder de `electron-webpack` esta aplicacion es posible...
 
