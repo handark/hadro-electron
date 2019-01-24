@@ -1,0 +1,84 @@
+{
+  "name": "hadro-electron",
+  "version": "1.0.0",
+  "author": {
+    "name": "Jose Luis Orozco - Drovancal SAS",
+    "email": "handark@gmail.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "electron-webpack dev",
+    "compile": "electron-webpack",
+    "dist": "yarn compile && electron-builder",
+    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
+  },
+  "build": {
+    "productName": "Hadro Electron",
+    "copyright": "Copyright © 2019 Drovancal SAS",
+    "mac": {
+      "darkModeSupport": "true",
+      "icon": "resources/icon/icon.png"
+    },
+    "dmg": {
+      "background": "resources/dmg_background/background.png",
+      "iconSize": "160",
+      "iconTextSize": "12",
+      "window": {
+        "width": "660",
+        "height": "400"
+      },
+      "contents": [
+        {
+          "x": "180",
+          "y": "170",
+          "type": "file"
+        },
+        {
+          "x": "480",
+          "y": "170",
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable",
+        "zip"
+      ],
+      "icon": "resources/icon/icon.ico"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm",
+        "snap"
+      ],
+      "icon": "resources/icon",
+      "category": "Productividad"
+    }
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "node-thermal-printer": "^2.0.0",
+    "source-map-support": "^0.5.10",
+    "spectre.css": "^0.5.8"
+  },
+  "devDependencies": {
+    "electron": "4.0.1",
+    "electron-builder": "^20.38.5",
+    "electron-webpack": "^2.6.2",
+    "electron-webpack-ts": "^3.1.1",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "ts-loader": "^5.3.3",
+    "tslint": "^5.12.1",
+    "tslint-config-standard": "^8.0.1",
+    "tslint-loader": "^3.5.4",
+    "typescript": "^3.2.4",
+    "webpack": "^4.29.0",
+    "webpack-build-notifier": "^0.1.30"
+  }
+}
